@@ -1,0 +1,106 @@
+package com.labka14;
+import java.util.*;
+import java.util.Scanner;
+public class Main {
+
+    public static void main(String[] args) {
+	   Map information = new HashMap();
+	   while(true){
+           Scanner menu = new Scanner(System.in);
+	       System.out.println(" please select what do you want to do:" +
+                   "\n1- add information ;\n2-delete information ;\n3- show information ;\n4-finding some car;\n0 - exit");
+	       int n = menu.nextInt();
+	       switch(n){
+               case 1:
+                   Automarket allinfo=new Automarket();
+                   String brand = allinfo.Brand();
+                   String infooo = allinfo.ReadInfo();
+                   information.put(brand,infooo);
+                   break;
+               case 2:
+                   System.out.println("choose element which you want to delete");
+                   String delete = menu.nextLine();
+                   information.remove(delete);
+                   break;
+               case 3:
+                   Set set = information.entrySet();
+                   for(Object o : set){
+                       System.out.println(o);
+
+                   }
+                   break;
+               case 0:
+                   return;
+               case 4:
+                   System.out.println("Enter a cars which tou want to find");
+                   String find = menu.nextLine();
+                   System.out.println(information.get(find));
+
+
+	       }
+	   }
+    }
+}
+package com.labka14;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
+
+public class Automarket {
+    public String ReadInfo() {
+        Scanner infowriter = new Scanner(System.in);
+
+
+        System.out.println("Model: ");
+        String model = infowriter.nextLine();
+        System.out.println("Year: ");
+        String year = infowriter.nextLine();
+        System.out.println("Power: ");
+        String power = infowriter.nextLine();
+        System.out.println("complectation: ");
+        String complectation = infowriter.nextLine();
+        System.out.println("id ");
+        String id = infowriter.nextLine();
+
+        return "Model: " + model + "\n" +
+                "Year: " + year + "\n" +
+                "Power: " + power + "\n" +
+                "complectation: " + complectation + "\n" +
+                "id: " + id;
+    }
+
+    public String Brand() {
+        Scanner infowriter = new Scanner(System.in);
+        System.out.println("Please fill up this form \n Brand: ");
+        String brand = infowriter.nextLine();
+        return brand;
+
+
+        }}
+package com.labka14;
+
+public class Information {
+    String model;
+    int year;
+    int power;
+    String complectation;
+    int id;
+
+    public Information(String model,int year, int power, String complectation, int id){
+         this.model=model;
+         this.year=year;
+         this.power=power;
+         this.complectation=complectation;
+         this.id=id;
+
+    }
+    @Override
+    public String toString(){
+        return "Model "+ model +
+                "year " + year+
+                "power "+ power+
+                "complectation "+ complectation+
+                "id "+ id;
+    }
+}
