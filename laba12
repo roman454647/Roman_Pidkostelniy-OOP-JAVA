@@ -1,0 +1,117 @@
+package ua.lpnuai.oop.peleshchak12;
+
+import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class Human_Res_Dep {
+    public boolean id (String id){
+        String idPattern = "\\w+";
+        if (id.matches(idPattern))
+            return true;
+        return false;
+    }
+
+    public boolean passport(String data){
+     String typePattern = "[A-Z\\d]{8}";
+     if(data.matches(typePattern))
+         return true;
+     return false;
+
+    }
+    public boolean education (String education){
+        String typePattern = "[a-zA-Z]+";
+        //String numberPattern = "\\d+";
+        if (education.matches(typePattern)){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean character (String character){
+        String reasonPattern = ".+";
+        if (character.matches(reasonPattern))
+            return true;
+        return false;
+    }
+
+    public boolean salary (String salary){
+        String reasonPattern = "\\d+";
+        if (salary.matches(reasonPattern))
+            return true;
+        return false;
+    }
+    public boolean career(String [] career){
+        String typePattern = "\\d{2}\\.\\d{2}\\.\\d{4}";
+        String type1Pattern = "[a-zA-Z]+";
+        if(career[0].matches(typePattern) && career[1].matches(type1Pattern) && career[2].matches(type1Pattern))
+            return true;
+        return false;
+    }
+
+
+
+}
+package ua.lpnuai.oop.peleshchak12;
+
+import java.io.IOException;
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+public class lab12{
+    public static void main(String [] args){
+        Scanner in = new Scanner(System.in);
+        System.out.println("How many ankets  would you like to add ? - ");
+        byte anket = (byte) in.nextInt();
+
+        for (int a = 0; a < anket;a++) {
+
+        System.out.println("Enter your  id");
+
+        String id = in.next();
+        Human_Res_Dep reg = new Human_Res_Dep();
+        while (!reg.id(id)){
+        System.out.println("Incorrect input.Enter your  id correctly");
+        id = in.next();
+        }
+        System.out.println("Enter your passport date");
+        String data = in.next();
+        while(!reg.passport(data)){
+            System.out.println("Incorrect input. Enter your passport date correctly(8 symbols: big letters and numbers)");
+            data = in.next();
+        }
+        System.out.println("Enter your education");
+        String educat = in.next();
+        while(!reg.education(educat)){
+            System.out.println("Incorrect input.Enter your education correctly");
+            data = in.next();
+        }
+        System.out.println("Enter your salary");
+        String salary = in.next();
+        while(!reg.salary(salary)){
+            System.out.println("Incorrect input. Enter your salary correctly");
+            data = in.next();
+        }
+
+        System.out.println("Enter your career(dd.mm.yyyy position department)");
+        String[] career = new String[3];
+        for (int i = 0; i < 3; i++) {
+        career[i] = in.next();
+        }
+        while (!reg.career(career)){
+            System.out.println("Incorrect input.Enter your career correctly(dd.mm.yyyy position department)");
+            for (int i = 0;i < 3; i++) {
+                career[i] = in.next();
+            }
+        }
+
+        System.out.println("Enter your characteristic - a set of properties and ratings");
+        String charact = in.next();
+        while(!reg.character(charact)){
+            System.out.println("Incorrect input.Enter your characteristic - a set of properties and ratings correctly");
+            charact = in.next();
+        }
+
+   }
+}
+}
