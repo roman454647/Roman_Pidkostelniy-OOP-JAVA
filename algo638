@@ -1,0 +1,49 @@
+import math
+trian =[]
+for i in range(3):
+    for j in input().split():
+        trian.append(int(j))
+x=[trian[0],trian[2],trian[4]]
+y=[trian[1],trian[3],trian[5]]
+children = int(input())
+child = []
+for i in range(children):
+    for j in input().split():
+        child.append(int(j))
+
+resarr = [0]*(children)
+a =[y[1]-y[0],y[2]-y[1],y[2]-y[0]]
+b =[x[0]-x[1],x[1]-x[2],x[0]-x[2]]
+c =[y[0]*x[1]-x[0]*y[1],y[1]*x[2]-x[1]*y[2],y[0]*x[2]-x[0]*y[2]]
+
+dists =[0]*(children*3)
+pi = (math.pi)/2
+li1 = math.sqrt(((x[0]-x[1])**2)+((y[0]-y[1])**2))
+li2 = math.sqrt(((x[2]-x[1])**2)+((y[2]-y[1])**2))
+li3 = math.sqrt(((x[0]-x[2])**2)+((y[0]-y[2])**2))
+
+for j in range(0,children*2,2):
+    for i in range(0,3):
+        dists[int(j*3/2 + i)]=math.sqrt(abs(((x[i]-child[j])**2)+((y[i]-child[j+1])**2)))
+
+for i in range(0,children*3,3):
+    curres = [100000000,10000000,1000000000,dists[i],dists[i+1],dists[i+2]]
+
+    ang1 =math.acos(((li1**2)+(dists[i]**2)-(dists[i+1]**2))/(2*li1*dists[i]))
+    ang2 =math.acos(((li1**2)+(dists[i+1]**2)-(dists[i]**2))/(2*li1*dists[i+1]))
+    if(ang1<pi and ang2<pi ):
+        curres[0] =abs((a[0]*child[int(i*2/3)]+b[0] * child[int(i * 2 / 3 + 1)] + c[0])/(math.sqrt((a[0]**2)+(b[0]**2))))
+    ang3 = math.acos(((li2**2)+(dists[i+1]**2)-(dists[i+2]**2))/(2*li2*dists[i+1]))
+    ang4 = math.acos(((li2**2)+(dists[i+2]**2)-(dists[i+1]**2))/(2*li2*dists[i+2]))
+    if (ang3 < pi and ang4 < pi):
+       curres[1]=abs(a[1] * child[int(i * 2 / 3)] + b[1] * child[int(i * 2 / 3 + 1)] + c[1]) / math.sqrt((a[1]**2) + (b[1]**2))
+    ang5 =math.acos(((li3**2)+ (dists[i]**2) - (dists[i + 2]**2)) / (2 * li3 * dists[i]))
+    ang6 =math.acos(((li3**2)+ (dists[i+2]**2) - (dists[i]**2)) / (2 * li3 * dists[i+2]))
+    if (ang5 < pi and ang6 < pi):
+       curres[2]= abs(a[2]*child[int(i * 2 / 3)] + b[2]* child[int(i * 2 / 3 + 1)]+c[2])/ math.sqrt((a[2]**2) + (b[2]**2))
+    curres.sort()
+    resarr[int(i/3)] =curres[0]
+
+resarr.sort()
+
+print(format(resarr[children - 1],".4f"))
